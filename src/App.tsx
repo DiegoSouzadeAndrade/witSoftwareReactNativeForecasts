@@ -1,12 +1,9 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import MainRouter from './routes/mainRouter';
 
 const App = () => {
-  return (
-    <View>
-      <Text>Teste</Text>
-    </View>
-  );
+  return <MainRouter />;
 };
 
 export default App;
