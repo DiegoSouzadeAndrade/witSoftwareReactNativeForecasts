@@ -15,11 +15,7 @@ const MainRouter: React.FC = () => {
   return (
     <NavigationContainer>
       <MainStack.Navigator>
-        <MainStack.Screen
-          options={{headerShown: false}}
-          name="Home"
-          component={Home}
-        />
+        <MainStack.Screen name="Home" component={Home} />
         <MainStack.Screen name="Config" component={Config} />
       </MainStack.Navigator>
     </NavigationContainer>
