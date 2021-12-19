@@ -5,8 +5,9 @@ import {RootMainStackParamList} from '../../routes/mainRouter';
 import CardList from '../../components/CardList';
 import {fetchByLocation, fetchByCityName} from '../../services/ApiCalls';
 import Geolocation from '@react-native-community/geolocation';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {AppDispatch} from '../../services/store';
+import {RootState} from '../../services/store';
 import Icon from 'react-native-vector-icons/FontAwesome';
 Icon.loadFont();
 
@@ -16,6 +17,7 @@ const Home = ({
   navigation,
 }: NativeStackScreenProps<RootMainStackParamList, 'Home'>) => {
   const dispatch = useDispatch<AppDispatch>();
+  const configs = useSelector((state: RootState) => state.configForecasts);
   const cities = [
     'Lisboa',
     'Madrid',
@@ -31,24 +33,27 @@ const Home = ({
 
   useEffect(() => {
     Geolocation.getCurrentPosition(info => {
-      fetchByLocation(info.coords.latitude, info.coords.longitude).then(
-        response => {
-          console.log(Object.keys(response.data));
-          dispatch({
-            type: 'addCity',
-            name: 'Cidade local',
-            humidity: response.data.current.humidity,
-            tempActual: response.data.current.temp,
-            tempMax: response.data.daily[0]?.temp?.max,
-            tempMin: response.data.daily[0]?.temp?.min,
-            windSpeed: response.data.current.wind_speed,
-            wheather: response.data.current.weather[0]?.main,
-            icon: response.data.current.weather[0]?.icon,
-          });
-        },
-      );
+      fetchByLocation(
+        info.coords.latitude,
+        info.coords.longitude,
+        configs.units,
+        configs.lang,
+      ).then(response => {
+        console.log(Object.keys(response.data));
+        dispatch({
+          type: 'addCity',
+          name: 'Cidade local',
+          humidity: response.data.current.humidity,
+          tempActual: response.data.current.temp,
+          tempMax: response.data.daily[0]?.temp?.max,
+          tempMin: response.data.daily[0]?.temp?.min,
+          windSpeed: response.data.current.wind_speed,
+          wheather: response.data.current.weather[0]?.main,
+          icon: response.data.current.weather[0]?.icon,
+        });
+      });
     });
-  }, [dispatch]);
+  }, [dispatch, configs.units, configs.lang]);
 
   useEffect(() => {
     cities.forEach(city => {
@@ -56,6 +61,8 @@ const Home = ({
         fetchByLocation(
           responseByName.data.coord.lat,
           responseByName.data.coord.lon,
+          configs.units,
+          configs.lang,
         ).then(response => {
           dispatch({
             type: 'addCity',
