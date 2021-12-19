@@ -6,6 +6,7 @@ interface CityData {
   tempActual: number;
   windSpeed: number;
   humidity: number;
+  icon: string;
 }
 
 const initialState: Array<CityData> = [];
