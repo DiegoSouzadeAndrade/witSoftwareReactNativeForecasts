@@ -39,7 +39,7 @@ const Home = ({
       ).then(response => {
         dispatch({
           type: 'addCity',
-          name: 'Cidade local',
+          name: 'Local city',
           humidity: response.data.current.humidity,
           tempActual: response.data.current.temp,
           tempMax: response.data.daily[0]?.temp?.max,
@@ -59,6 +59,7 @@ const Home = ({
             response.data.alerts === undefined
               ? null
               : response.data.alerts[0]?.event,
+          dt: response.data.current.dt,
         });
       });
     });
@@ -95,6 +96,7 @@ const Home = ({
               response.data.alerts === undefined
                 ? null
                 : response.data.alerts[0]?.event,
+            dt: response.data.current.dt,
           });
         });
       });
@@ -112,22 +114,23 @@ const Home = ({
             marginRight: 15,
             justifyContent: 'space-between',
           }}>
-          <TouchableOpacity onPress={() => console.log('add city')}>
-            <Icon name="search" size={18} color="rgba(255, 255, 255, 1.0)" />
+          <TouchableOpacity onPress={() => navigation.navigate('Config')}>
+            <Icon name="wrench" size={25} color="rgba(255, 255, 255 , 1.0)" />
           </TouchableOpacity>
         </View>
       ),
+      headerStyle: {
+        backgroundColor: '#6c99f4',
+      },
+      title: 'Forecasts',
+      headerTitleStyle: {
+        fontFamily: 'bold',
+      },
     });
   });
 
   return (
     <View style={{flex: 1}}>
-      <TouchableOpacity
-        style={{alignSelf: 'center'}}
-        onPress={() => navigation.navigate('Config')}>
-        <Icon name="settings" size={22} color="rgba( 83, 128, 220 , 1.0)" />
-      </TouchableOpacity>
-
       <CardList />
     </View>
   );

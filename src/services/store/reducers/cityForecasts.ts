@@ -10,6 +10,7 @@ interface CityData {
   description?: string;
   senderName?: string;
   event?: string;
+  dt: number;
 }
 
 const initialState: Array<CityData> = [];

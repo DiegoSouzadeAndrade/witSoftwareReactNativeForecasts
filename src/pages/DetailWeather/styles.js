@@ -6,16 +6,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFAF32',
   },
-  textNextDays: {
-    alignContent: 'center',
-    alignItems: 'center',
-    margin: 10,
-  },
-  textNextDaysDesc: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#FFF',
-  },
   containerDetail: {
     flex: 1,
     flexDirection: 'row',
@@ -29,22 +19,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   column: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
   },
   column2: {
     flexDirection: 'column',
     justifyContent: 'space-around',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
+    marginTop: 20,
   },
   column3: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+  },
+  column4: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
   card: {
     flex: 1,
-    flexDirection: 'row',
     backgroundColor: '#fff',
     justifyContent: 'space-between',
   },
