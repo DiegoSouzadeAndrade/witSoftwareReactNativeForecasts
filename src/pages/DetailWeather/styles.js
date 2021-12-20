@@ -16,18 +16,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#FFF',
   },
-  container: {
-    height: 150,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderRadius: 5,
-    borderWidth: 0.5,
-    borderColor: '#f2f2f2',
-    elevation: 5,
-    margin: 10,
-    padding: 15,
-    backgroundColor: '#fff',
-  },
   containerDetail: {
     flex: 1,
     flexDirection: 'row',

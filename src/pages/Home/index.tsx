@@ -11,8 +11,6 @@ import {RootState} from '../../services/store';
 import Icon from 'react-native-vector-icons/FontAwesome';
 Icon.loadFont();
 
-// Lisboa, Madrid, Paris, Berlim, Copenhaga, Roma, Londres, Dublin, Praga e Viena.
-//(temp. máxima, minima, atual, velocidade do vento, humidade,
 const Home = ({
   navigation,
 }: NativeStackScreenProps<RootMainStackParamList, 'Home'>) => {
@@ -39,7 +37,6 @@ const Home = ({
         configs.units,
         configs.lang,
       ).then(response => {
-        console.log(Object.keys(response.data));
         dispatch({
           type: 'addCity',
           name: 'Cidade local',
@@ -50,6 +47,18 @@ const Home = ({
           windSpeed: response.data.current.wind_speed,
           wheather: response.data.current.weather[0]?.main,
           icon: response.data.current.weather[0]?.icon,
+          description:
+            response.data.alerts === undefined
+              ? null
+              : response.data.alerts[0]?.description,
+          senderName:
+            response.data.alerts === undefined
+              ? null
+              : response.data.alerts[0]?.sender_name,
+          event:
+            response.data.alerts === undefined
+              ? null
+              : response.data.alerts[0]?.event,
         });
       });
     });
@@ -74,11 +83,23 @@ const Home = ({
             windSpeed: response.data.current.wind_speed,
             wheather: response.data.current.weather[0]?.main,
             icon: response.data.current.weather[0]?.icon,
+            description:
+              response.data.alerts === undefined
+                ? null
+                : response.data.alerts[0]?.description,
+            senderName:
+              response.data.alerts === undefined
+                ? null
+                : response.data.alerts[0]?.sender_name,
+            event:
+              response.data.alerts === undefined
+                ? null
+                : response.data.alerts[0]?.event,
           });
         });
       });
     });
-  }, []);
+  }, [dispatch, configs.units, configs.lang]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -100,13 +121,13 @@ const Home = ({
   });
 
   return (
-    <View>
-      <Button
-        onPress={() => {
-          navigation.navigate('Config');
-        }}
-        title="Config"
-      />
+    <View style={{flex: 1}}>
+      <TouchableOpacity
+        style={{alignSelf: 'center'}}
+        onPress={() => navigation.navigate('Config')}>
+        <Icon name="settings" size={22} color="rgba( 83, 128, 220 , 1.0)" />
+      </TouchableOpacity>
+
       <CardList />
     </View>
   );

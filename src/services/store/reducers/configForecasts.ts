@@ -5,12 +5,8 @@ interface ForecastConfigData {
 
 const initialState: ForecastConfigData = {
   units: 'metric',
-  lang: 'pt',
+  lang: 'pt_br',
 };
-
-// const response = await api.get(
-//   `/forecast?id=${cityId}appid=28c5e034b88b2e6954f92d3e8f237bb1`,
-// );
 
 interface ActionToggleUnit extends ForecastConfigData {
   type: 'changeUnit';

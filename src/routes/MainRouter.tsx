@@ -7,7 +7,16 @@ import {Home, Config, DetailWeather} from '../pages';
 export type RootMainStackParamList = {
   Home: undefined;
   Config: undefined;
-  DetailWeather: undefined;
+  DetailWeather: {
+    name: string;
+    wheather: number;
+    tempMax: number;
+    tempMin: number;
+    tempActual: number;
+    windSpeed: number;
+    humidity: number;
+    icon: string;
+  };
 };
 
 const MainStack = createNativeStackNavigator();

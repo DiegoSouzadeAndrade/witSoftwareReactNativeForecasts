@@ -1,6 +1,5 @@
 import React from 'react';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import moment from 'moment';
 import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -31,22 +30,13 @@ const Card: React.FC<{item: any}> = ({item}) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        navigation.navigate('DetailWeather', item);
+        navigation.navigate('DetailWeather', {item: item});
       }}>
       <View style={styles.card}>
         <View style={styles.column}>
           <View>
-            <Text style={styles.textCity}>
-              {item.name}
-              {/*moment.unix(item.dt).isSame(moment(), 'day')
-                ? 'Hoje'
-                : capitalizeFirstLetter(
-                    moment.unix(item.dt).locale('pt-br').format('dddd'),
-                )*/}
-            </Text>
-            <Text style={styles.textSimple}>
-              {/*moment.unix(item.dt).locale('pt-br').format('ll')*/}
-            </Text>
+            <Text style={styles.textCity}>{item.name}</Text>
+            <Text style={styles.textSimple}>{item.wheather}</Text>
           </View>
           <View>
             <Text style={styles.tempDescription} />
@@ -71,9 +61,8 @@ const Card: React.FC<{item: any}> = ({item}) => {
               fontWeight: 'bold',
               color: colorByTemperature(Math.round(item.tempActual)),
             }}>
-            {Math.round(item.tempMax)}º
+            {Math.round(item.tempActual)}º
           </Text>
-          <Text style={styles.textMax}>máx</Text>
         </View>
       </View>
     </TouchableOpacity>
