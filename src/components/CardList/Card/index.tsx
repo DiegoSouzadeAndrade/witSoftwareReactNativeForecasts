@@ -1,11 +1,16 @@
 import React from 'react';
-import moment from 'moment';
-import {View, Text, ImageBackground} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {View, Text, ImageBackground, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../../routes/MainRouter';
 Icon.loadFont();
 
-const Card: React.FC<{item: any}> = item => {
+const Card: React.FC<{item: any}> = ({item}) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   const colorByTemperature = (value: number) => {
     if (value <= 10) {
       return '#008BF0';
@@ -22,33 +27,28 @@ const Card: React.FC<{item: any}> = item => {
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('DetailWeather', {item: item});
+      }}>
       <View style={styles.card}>
         <View style={styles.column}>
           <View>
-            <Text style={styles.textCity}>
-              {item.item.name}
-              {/*moment.unix(item.dt).isSame(moment(), 'day')
-                ? 'Hoje'
-                : capitalizeFirstLetter(
-                    moment.unix(item.dt).locale('pt-br').format('dddd'),
-                )*/}
-            </Text>
-            <Text style={styles.textSimple}>
-              {/*moment.unix(item.dt).locale('pt-br').format('ll')*/}
-            </Text>
+            <Text style={styles.textCity}>{item.name}</Text>
+            <Text style={styles.textSimple}>{item.wheather}</Text>
           </View>
           <View>
             <Text style={styles.tempDescription} />
             <Text style={styles.textSimple}>
-              {item.item.tempMin}º - {item.item.tempMax}º
+              {item.tempMin}º - {item.tempMax}º
             </Text>
           </View>
         </View>
         <View style={styles.column3}>
           <ImageBackground
             source={{
-              uri: `http://openweathermap.org/img/wn/${item.item.icon}@2x.png`,
+              uri: `http://openweathermap.org/img/wn/${item.icon}@2x.png`,
             }}
             style={styles.weatherIcon}
           />
@@ -59,14 +59,13 @@ const Card: React.FC<{item: any}> = item => {
             style={{
               fontSize: 50,
               fontWeight: 'bold',
-              color: colorByTemperature(Math.round(item.item.tempActual)),
+              color: colorByTemperature(Math.round(item.tempActual)),
             }}>
-            {Math.round(item.item.tempMax)}º
+            {Math.round(item.tempActual)}º
           </Text>
-          <Text style={styles.textMax}>máx</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

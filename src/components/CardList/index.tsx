@@ -26,7 +26,7 @@ const CardList: React.FC = () => {
         <FlatList
           data={data}
           renderItem={({item}) => <Card item={item} />}
-          keyExtractor={item => item.name}
+          keyExtractor={item => item.dt.toString()}
         />
       )}
     </SafeAreaView>

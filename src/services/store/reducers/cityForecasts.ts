@@ -1,19 +1,19 @@
 interface CityData {
   name: string;
-  wheather: number;
+  wheather: string;
   tempMax: number;
   tempMin: number;
   tempActual: number;
   windSpeed: number;
   humidity: number;
   icon: string;
+  description?: string;
+  senderName?: string;
+  event?: string;
+  dt: number;
 }
 
 const initialState: Array<CityData> = [];
-
-// const response = await api.get(
-//   `/forecast?id=${cityId}appid=28c5e034b88b2e6954f92d3e8f237bb1`,
-// );
 
 interface ActionAddCity extends CityData {
   type: 'addCity';
